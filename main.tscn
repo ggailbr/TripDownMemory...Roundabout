@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://chkcs6r0hw3sv"]
+
+[ext_resource type="Script" path="res://Scripts/Roundabout.gd" id="1_4iwr0"]
+[ext_resource type="PackedScene" uid="uid://cj1i8rghny6us" path="res://Scenes/Enemies/BasicCar.tscn" id="2_fdfr5"]
+[ext_resource type="Texture2D" uid="uid://dbhkj00gdrf7u" path="res://Sprites/circl.png" id="3_apvaq"]
+[ext_resource type="PackedScene" uid="uid://b237aacigxv6p" path="res://Scenes/Player.tscn" id="4_m8rga"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Roundabout" type="Marker2D" parent="."]
+script = ExtResource("1_4iwr0")
+num_lanes = 5
+enemies = Array[PackedScene]([ExtResource("2_fdfr5")])
+spawn_timer = 0.5
+
+[node name="SpawnerTimer" type="Timer" parent="Roundabout"]
+
+[node name="GraceTimer" type="Timer" parent="Roundabout"]
+one_shot = true
+autostart = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Roundabout"]
+z_index = -1
+scale = Vector2(0.159998, 0.160001)
+texture = ExtResource("3_apvaq")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Roundabout"]
+z_index = -2
+scale = Vector2(0.205, 0.205)
+texture = ExtResource("3_apvaq")
+
+[node name="Player" parent="." instance=ExtResource("4_m8rga")]
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+ignore_rotation = false
+zoom = Vector2(2, 2)
+
+[node name="InGameUI" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameUI"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Current Gold" type="Label" parent="InGameUI/VBoxContainer"]
+layout_mode = 2
+text = "Test
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameUI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+alignment = 1
+
+[node name="Label" type="Label" parent="InGameUI/HBoxContainer"]
+layout_mode = 2
+text = "HP"
+
+[node name="Label2" type="Label" parent="InGameUI/HBoxContainer"]
+layout_mode = 2
+text = "Gold
+"
+
+[node name="Label3" type="Label" parent="InGameUI/HBoxContainer"]
+layout_mode = 2
+text = "Items
+"
+
+[connection signal="timeout" from="Roundabout/SpawnerTimer" to="Roundabout" method="_on_spawner_timer_timeout"]
+[connection signal="timeout" from="Roundabout/GraceTimer" to="Roundabout" method="_on_grace_timer_timeout"]
