@@ -9,7 +9,7 @@ var lane_offset : float
 var lane_change_progress : float
 var lane_change_speed : float = 5
 
-@export var speed : float = 80
+var speed : float
 var roundabout : Object
 var radius : float
 
@@ -53,6 +53,7 @@ func _physics_process(delta):
 	PlayerVariables.player_rotation = rotation
 	#$Label.text = "%f" % fmod(PlayerVariables.player_rotation, 2*PI)
 	position = Vector2(-cos(rotation) * radius, -sin(rotation) * radius)
-	
-	pass
 
+func _on_area_entered(area):
+	if area.is_in_group("Enemy"):
+		area.dying = true

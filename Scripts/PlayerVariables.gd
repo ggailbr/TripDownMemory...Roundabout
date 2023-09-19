@@ -4,7 +4,7 @@ var max_lane : int
 var gold : int
 var hits : int = 3
 var vision_level : int = 0
-var max_speed : float = 40
+var max_speed : float = 80
 var min_speed : float = 10
 var acceleration : float = 10
 

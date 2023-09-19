@@ -8,12 +8,13 @@ size = Vector2(20, 35)
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yoqvf"]
 size = Vector2(20, 35)
 
-[node name="BasicCar" type="Area2D"]
+[node name="BasicCar" type="Area2D" groups=["Enemy"]]
 script = ExtResource("1_ken86")
 speed = 80.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8goed")
+debug_color = Color(0.996078, 0, 0.223529, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("PlaceholderTexture2D_yoqvf")
@@ -24,3 +25,6 @@ offset_top = -11.0
 offset_right = 20.0
 offset_bottom = 12.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="ready" from="." to="." method="_on_ready"]
