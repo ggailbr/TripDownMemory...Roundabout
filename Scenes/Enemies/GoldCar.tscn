@@ -1,26 +1,89 @@
-[gd_scene load_steps=4 format=3 uid="uid://blgv1oiwjuhyp"]
+[gd_scene load_steps=14 format=3 uid="uid://blgv1oiwjuhyp"]
 
 [ext_resource type="Script" path="res://Scripts/EnemyMovement.gd" id="1_knbhp"]
-[ext_resource type="Texture2D" uid="uid://der6p4homr40c" path="res://Sprites/white.png" id="2_xkoax"]
+[ext_resource type="Texture2D" uid="uid://oli6ff4xhc3d" path="res://Sprites/CarBody.png" id="2_vjy47"]
+[ext_resource type="Script" path="res://Scripts/Speed_Animate.gd" id="3_4mn7k"]
+[ext_resource type="Texture2D" uid="uid://t6wf0fliutu5" path="res://Sprites/BasicCarWindows.png" id="4_me1uy"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8goed"]
-size = Vector2(20, 35)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3gnon"]
+radius = 14.32
+height = 76.16
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_351po"]
+atlas = ExtResource("2_vjy47")
+region = Rect2(0, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jm62v"]
+atlas = ExtResource("2_vjy47")
+region = Rect2(40, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i25xt"]
+atlas = ExtResource("2_vjy47")
+region = Rect2(0, 80, 40, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8k8ft"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_351po")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jm62v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i25xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jm62v")
+}],
+"loop": true,
+"name": &"driving",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpgun"]
+atlas = ExtResource("4_me1uy")
+region = Rect2(0, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_835a6"]
+atlas = ExtResource("4_me1uy")
+region = Rect2(40, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sw616"]
+atlas = ExtResource("4_me1uy")
+region = Rect2(0, 80, 40, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y4hju"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpgun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_835a6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sw616")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_835a6")
+}],
+"loop": true,
+"name": &"driving",
+"speed": 5.0
+}]
 
 [node name="GoldCar" type="Area2D" groups=["Enemy"]]
+collision_layer = 2
 script = ExtResource("1_knbhp")
 speed = 80.0
-color = Color(1, 0.843137, 0, 1)
+colors = Array[Color]([Color(1, 0.843137, 0, 1)])
 gold_value = 1000
 damage_value = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_8goed")
+shape = SubResource("CapsuleShape2D_3gnon")
 debug_color = Color(0.996078, 0, 0.223529, 0.419608)
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(3.8147e-06, 3.8147e-06)
-scale = Vector2(0.1, 0.18)
-texture = ExtResource("2_xkoax")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -20.0
@@ -28,6 +91,35 @@ offset_top = -11.0
 offset_right = 20.0
 offset_bottom = 12.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="CarBody" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("car")]
+modulate = Color(0.956863, 0.964706, 0.933333, 1)
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_8k8ft")
+animation = &"driving"
+autoplay = "driving"
+script = ExtResource("3_4mn7k")
+car = NodePath("..")
+
+[node name="CarAccesories" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("car")]
+z_index = 1
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_y4hju")
+animation = &"driving"
+autoplay = "driving"
+script = ExtResource("3_4mn7k")
+car = NodePath("..")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 20
+lifetime = 0.5
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+angle_min = -180.0
+angle_max = 180.0
+color = Color(1, 0.843137, 0, 1)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="ready" from="." to="." method="_on_ready"]

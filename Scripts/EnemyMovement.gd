@@ -2,7 +2,7 @@ extends Area2D
 
 ## Speed in Pixels/sec
 @export var speed : float
-@export var color : Color
+@export var colors : Array[Color]
 @export var gold_value : int
 @export var damage_value : int
 
@@ -15,7 +15,7 @@ var life_time : float = 0
 
 func _on_ready():
 	dying = false
-	self.set_modulate(color)
+	$CarBody.set_modulate(colors[randi_range(0, len(colors)-1)])
 
 func _process(delta):
 	life_time += delta

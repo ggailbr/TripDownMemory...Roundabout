@@ -1,29 +1,92 @@
-[gd_scene load_steps=5 format=3 uid="uid://b237aacigxv6p"]
+[gd_scene load_steps=18 format=3 uid="uid://b237aacigxv6p"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_5savp"]
+[ext_resource type="Texture2D" uid="uid://oli6ff4xhc3d" path="res://Sprites/CarBody.png" id="2_rpxhx"]
+[ext_resource type="Script" path="res://Scripts/Speed_Animate.gd" id="3_62ccf"]
+[ext_resource type="Texture2D" uid="uid://t6wf0fliutu5" path="res://Sprites/BasicCarWindows.png" id="3_umrws"]
+[ext_resource type="AudioStream" uid="uid://d3rn8nqemw8q8" path="res://Sounds/bus-engine-idling-26992.mp3" id="5_t3qjd"]
+[ext_resource type="Script" path="res://Scenes/BeepBox.gd" id="6_5oy6x"]
+[ext_resource type="AudioStream" uid="uid://cxbufdq71nra1" path="res://Sounds/car-horn-beepsmp3-14659.mp3" id="7_raijj"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qv5io"]
-size = Vector2(20, 35)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s8g3l"]
+radius = 14.32
+height = 76.16
 
-[sub_resource type="Gradient" id="Gradient_qdopu"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_351po"]
+atlas = ExtResource("2_rpxhx")
+region = Rect2(0, 0, 40, 80)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_j5qy5"]
-gradient = SubResource("Gradient_qdopu")
-width = 20
-height = 35
-fill_from = Vector2(0.516026, 0.277778)
-fill_to = Vector2(0.516026, 0.217949)
+[sub_resource type="AtlasTexture" id="AtlasTexture_jm62v"]
+atlas = ExtResource("2_rpxhx")
+region = Rect2(40, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i25xt"]
+atlas = ExtResource("2_rpxhx")
+region = Rect2(0, 80, 40, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f663g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_351po")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jm62v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i25xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jm62v")
+}],
+"loop": true,
+"name": &"driving",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpgun"]
+atlas = ExtResource("3_umrws")
+region = Rect2(0, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_835a6"]
+atlas = ExtResource("3_umrws")
+region = Rect2(40, 0, 40, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sw616"]
+atlas = ExtResource("3_umrws")
+region = Rect2(0, 80, 40, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gy3m0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpgun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_835a6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sw616")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_835a6")
+}],
+"loop": true,
+"name": &"driving",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1yl7k"]
+size = Vector2(28, 20)
 
 [node name="Player" type="Area2D"]
+collision_mask = 6
 script = ExtResource("1_5savp")
+color = Color(0.784314, 0.388235, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_qv5io")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1.00171, 1)
-texture = SubResource("GradientTexture2D_j5qy5")
+shape = SubResource("CapsuleShape2D_s8g3l")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 10.0
@@ -31,3 +94,46 @@ offset_top = -12.0
 offset_right = 50.0
 offset_bottom = 11.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="CarBody" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("car")]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_f663g")
+animation = &"driving"
+autoplay = "driving"
+frame_progress = 0.233207
+script = ExtResource("3_62ccf")
+car = NodePath("..")
+
+[node name="CarAccesories" type="AnimatedSprite2D" parent="." node_paths=PackedStringArray("car")]
+z_index = 1
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_gy3m0")
+animation = &"driving"
+autoplay = "driving"
+frame_progress = 0.0804422
+script = ExtResource("3_62ccf")
+car = NodePath("..")
+
+[node name="Idling" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_t3qjd")
+volume_db = -25.0
+pitch_scale = 1.19
+autoplay = true
+attenuation = 1.03527
+max_polyphony = 3
+
+[node name="BeepBox" type="Area2D" parent="."]
+position = Vector2(0, -42)
+collision_mask = 6
+script = ExtResource("6_5oy6x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BeepBox"]
+shape = SubResource("RectangleShape2D_1yl7k")
+
+[node name="Beep" type="AudioStreamPlayer2D" parent="BeepBox"]
+stream = ExtResource("7_raijj")
+volume_db = -27.0
+pitch_scale = 1.5
+max_polyphony = 15
+
+[connection signal="area_entered" from="BeepBox" to="BeepBox" method="_on_area_entered"]

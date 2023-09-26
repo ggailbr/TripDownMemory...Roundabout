@@ -1,23 +1,50 @@
-[gd_scene load_steps=12 format=3 uid="uid://chkcs6r0hw3sv"]
+[gd_scene load_steps=15 format=3 uid="uid://chkcs6r0hw3sv"]
 
 [ext_resource type="Script" path="res://Scripts/Roundabout.gd" id="1_4iwr0"]
 [ext_resource type="PackedScene" uid="uid://cj1i8rghny6us" path="res://Scenes/Enemies/BasicCar.tscn" id="2_fdfr5"]
-[ext_resource type="Texture2D" uid="uid://dbhkj00gdrf7u" path="res://Sprites/circl.png" id="3_apvaq"]
 [ext_resource type="PackedScene" uid="uid://blgv1oiwjuhyp" path="res://Scenes/Enemies/GoldCar.tscn" id="3_okfo1"]
-[ext_resource type="Texture2D" uid="uid://dytupcm86lhjk" path="res://Sprites/road_general.png" id="3_vydhe"]
 [ext_resource type="PackedScene" uid="uid://b237aacigxv6p" path="res://Scenes/Player.tscn" id="4_m8rga"]
+[ext_resource type="Texture2D" uid="uid://u4s6wweqjikp" path="res://Sprites/New_Roundabout.png" id="5_823hy"]
 [ext_resource type="Script" path="res://Scripts/InGameUI.gd" id="5_wlfj5"]
+[ext_resource type="AudioStream" uid="uid://c3gk0durels4w" path="res://Sounds/highway-traffic-cars-and-street-sounds-8029.mp3" id="6_gucid"]
 [ext_resource type="Texture2D" uid="uid://ccpyvdcrbgune" path="res://Sprites/health_under.tres" id="8_jh0ay"]
 [ext_resource type="Texture2D" uid="uid://br3l1oq1rfaaq" path="res://Sprites/health_over.tres" id="9_5odwv"]
 [ext_resource type="Texture2D" uid="uid://crr27qgba6pt6" path="res://Sprites/health_progress.tres" id="10_1nkbp"]
 [ext_resource type="Script" path="res://Health.gd" id="11_y8x60"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jskx6"]
+atlas = ExtResource("5_823hy")
+region = Rect2(0, 0, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l3t6v"]
+atlas = ExtResource("5_823hy")
+region = Rect2(1500, 3000, 1500, 1500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wblxy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jskx6")
+}],
+"loop": true,
+"name": &"1",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l3t6v")
+}],
+"loop": true,
+"name": &"6",
+"speed": 5.0
+}]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Roundabout" type="Marker2D" parent="." groups=["Level"]]
 editor_description = "A single \"level\""
 script = ExtResource("1_4iwr0")
-num_lanes = 7
+num_lanes = 6
 enemies = Array[PackedScene]([ExtResource("3_okfo1"), ExtResource("2_fdfr5")])
 spawn_timer = 0.5
 
@@ -27,15 +54,15 @@ spawn_timer = 0.5
 one_shot = true
 autostart = true
 
-[node name="Sprite2D" type="Sprite2D" parent="Roundabout"]
-z_index = -1
-scale = Vector2(0.205, 0.205)
-texture = ExtResource("3_vydhe")
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Roundabout"]
+stream = ExtResource("6_gucid")
+volume_db = -25.0
+autoplay = true
 
-[node name="Sprite2D2" type="Sprite2D" parent="Roundabout"]
-z_index = -2
-scale = Vector2(0.205, 0.205)
-texture = ExtResource("3_apvaq")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Roundabout"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_wblxy")
+animation = &"6"
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("4_m8rga")]
 

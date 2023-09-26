@@ -1,5 +1,7 @@
 extends Area2D
 
+@export var color : Color
+
 var current_lane = 0
 var max_lane : int
 var changing_lanes : bool = false
@@ -16,6 +18,7 @@ var radius : float
 func _ready():
 	call_deferred("initialize_lanes")
 	PlayerVariables.health = 100
+	$CarBody.set_modulate(color)
 	
 func initialize_lanes():
 	roundabout = get_node("/root/Node2D/Roundabout")
@@ -28,6 +31,7 @@ func initialize_lanes():
 
 
 func _physics_process(delta):
+	$Idling.pitch_scale = (speed+130)/100
 	var move_lanes = Input.get_axis("ui_right", "ui_left")
 	var change_speeds = Input.get_axis("ui_down", "ui_up")
 	if changing_lanes:
