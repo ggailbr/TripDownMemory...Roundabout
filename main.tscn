@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://chkcs6r0hw3sv"]
+[gd_scene load_steps=12 format=3 uid="uid://chkcs6r0hw3sv"]
 
 [ext_resource type="Script" path="res://Scripts/Roundabout.gd" id="1_4iwr0"]
 [ext_resource type="PackedScene" uid="uid://cj1i8rghny6us" path="res://Scenes/Enemies/BasicCar.tscn" id="2_fdfr5"]
 [ext_resource type="Texture2D" uid="uid://dbhkj00gdrf7u" path="res://Sprites/circl.png" id="3_apvaq"]
+[ext_resource type="PackedScene" uid="uid://blgv1oiwjuhyp" path="res://Scenes/Enemies/GoldCar.tscn" id="3_okfo1"]
+[ext_resource type="Texture2D" uid="uid://dytupcm86lhjk" path="res://Sprites/road_general.png" id="3_vydhe"]
 [ext_resource type="PackedScene" uid="uid://b237aacigxv6p" path="res://Scenes/Player.tscn" id="4_m8rga"]
 [ext_resource type="Script" path="res://Scripts/InGameUI.gd" id="5_wlfj5"]
+[ext_resource type="Texture2D" uid="uid://ccpyvdcrbgune" path="res://Sprites/health_under.tres" id="8_jh0ay"]
+[ext_resource type="Texture2D" uid="uid://br3l1oq1rfaaq" path="res://Sprites/health_over.tres" id="9_5odwv"]
+[ext_resource type="Texture2D" uid="uid://crr27qgba6pt6" path="res://Sprites/health_progress.tres" id="10_1nkbp"]
+[ext_resource type="Script" path="res://Health.gd" id="11_y8x60"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -12,7 +18,7 @@
 editor_description = "A single \"level\""
 script = ExtResource("1_4iwr0")
 num_lanes = 7
-enemies = Array[PackedScene]([ExtResource("2_fdfr5")])
+enemies = Array[PackedScene]([ExtResource("3_okfo1"), ExtResource("2_fdfr5")])
 spawn_timer = 0.5
 
 [node name="SpawnerTimer" type="Timer" parent="Roundabout"]
@@ -23,8 +29,8 @@ autostart = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Roundabout"]
 z_index = -1
-scale = Vector2(0.159998, 0.160001)
-texture = ExtResource("3_apvaq")
+scale = Vector2(0.205, 0.205)
+texture = ExtResource("3_vydhe")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Roundabout"]
 z_index = -2
@@ -50,12 +56,19 @@ layout_mode = 2
 text = "
 "
 
+[node name="Current Health" type="Label" parent="InGameUI/VBoxContainer"]
+layout_mode = 2
+text = "
+"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="InGameUI"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 3.0
 offset_top = -26.0
+offset_right = -793.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
@@ -74,6 +87,16 @@ text = "Gold
 layout_mode = 2
 text = "Items
 "
+
+[node name="Health" type="TextureProgressBar" parent="InGameUI/HBoxContainer"]
+layout_mode = 2
+texture_under = ExtResource("8_jh0ay")
+texture_over = ExtResource("9_5odwv")
+texture_progress = ExtResource("10_1nkbp")
+tint_under = Color(0, 0, 0, 1)
+tint_over = Color(0.235294, 1, 1, 0.466667)
+tint_progress = Color(1, 0, 0, 1)
+script = ExtResource("11_y8x60")
 
 [connection signal="timeout" from="Roundabout/SpawnerTimer" to="Roundabout" method="_on_spawner_timer_timeout"]
 [connection signal="timeout" from="Roundabout/GraceTimer" to="Roundabout" method="_on_grace_timer_timeout"]

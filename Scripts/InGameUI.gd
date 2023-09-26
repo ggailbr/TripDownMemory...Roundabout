@@ -3,9 +3,14 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+		pass
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$VBoxContainer/"Current Gold".text = str(PlayerVariables.gold)
+	$VBoxContainer/"Current Gold".text = "Gold: "+str(PlayerVariables.gold)+" value: "+str($HBoxContainer/Health.value)
+	$VBoxContainer/"Current Health".text = "Health: "+str(PlayerVariables.health)
+
+
+

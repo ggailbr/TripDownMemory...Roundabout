@@ -1,25 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://cj1i8rghny6us"]
+[gd_scene load_steps=4 format=3 uid="uid://blgv1oiwjuhyp"]
 
-[ext_resource type="Script" path="res://Scripts/EnemyMovement.gd" id="1_ken86"]
-[ext_resource type="Texture2D" uid="uid://der6p4homr40c" path="res://Sprites/white.png" id="2_3ixcx"]
+[ext_resource type="Script" path="res://Scripts/EnemyMovement.gd" id="1_knbhp"]
+[ext_resource type="Texture2D" uid="uid://der6p4homr40c" path="res://Sprites/white.png" id="2_xkoax"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8goed"]
 size = Vector2(20, 35)
 
-[node name="BasicCar" type="Area2D" groups=["Enemy"]]
-script = ExtResource("1_ken86")
+[node name="GoldCar" type="Area2D" groups=["Enemy"]]
+script = ExtResource("1_knbhp")
 speed = 80.0
-color = Color(0.784314, 0.835294, 0.933333, 1)
-damage_value = 30
+color = Color(1, 0.843137, 0, 1)
+gold_value = 1000
+damage_value = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_8goed")
 debug_color = Color(0.996078, 0, 0.223529, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-0.5, 0)
-scale = Vector2(0.105, 0.18)
-texture = ExtResource("2_3ixcx")
+position = Vector2(3.8147e-06, 3.8147e-06)
+scale = Vector2(0.1, 0.18)
+texture = ExtResource("2_xkoax")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -20.0

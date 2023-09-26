@@ -4,11 +4,12 @@ extends Marker2D
 @export_category("Level Characteristics")
 @export var num_lanes : int
 @export var lane_offset : float = 150.0
-@export var lane_width : float = 45.0
+@export var lane_width : float = 50.0
 @export_category("Difficulty")
 @export var gold_value : float = 1000.0
 @export var enemies : Array[PackedScene]
 @export var spawn_timer : float = 0.2
+@export var gold_spawn_chance : float = 0.1
 
 var Player
 var previous_lane = 0
@@ -30,7 +31,11 @@ func _on_grace_timer_timeout():
 	$SpawnerTimer.start()
 
 func _on_spawner_timer_timeout():
-	var new_enemy = enemies[randi() % enemies.size()].instantiate()
+	var new_enemy
+	if randf() <= gold_spawn_chance:
+		new_enemy = enemies[0].instantiate() # spawn basic car
+	else:
+		new_enemy = enemies[1].instantiate() # spawn gold car
 	var lane = (randi() % num_lanes)
 	while lane <= previous_lane + 1 && lane >= previous_lane - 1:
 		lane = (randi() % num_lanes)

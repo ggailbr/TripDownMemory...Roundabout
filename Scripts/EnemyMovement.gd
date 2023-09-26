@@ -2,6 +2,9 @@ extends Area2D
 
 ## Speed in Pixels/sec
 @export var speed : float
+@export var color : Color
+@export var gold_value : int
+@export var damage_value : int
 
 var dying : bool
 var radius 
@@ -12,6 +15,7 @@ var life_time : float = 0
 
 func _on_ready():
 	dying = false
+	self.set_modulate(color)
 
 func _process(delta):
 	life_time += delta
@@ -27,7 +31,14 @@ func _physics_process(delta):
 	position = Vector2(cos(rotation) * radius, sin(rotation) * radius)
 	#$Label.text = "%f" % fmod(fmod(rotation, 2*PI) + 2*PI, 2* PI) 
 	if dying:
-		self.set_modulate(Color(1,0,0,0.5))
 		await get_tree().create_timer(1).timeout
 		queue_free()
+
+
+func dying_now():
+		self.set_modulate(Color(1,0,0,0.5))
+		dying = true
+		$CollisionShape2D.disabled = 1
+
+	
 

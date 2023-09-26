@@ -15,6 +15,7 @@ var radius : float
 
 func _ready():
 	call_deferred("initialize_lanes")
+	PlayerVariables.health = 100
 	
 func initialize_lanes():
 	roundabout = get_node("/root/Node2D/Roundabout")
@@ -53,7 +54,11 @@ func _physics_process(delta):
 	PlayerVariables.player_rotation = rotation
 	#$Label.text = "%f" % fmod(PlayerVariables.player_rotation, 2*PI)
 	position = Vector2(-cos(rotation) * radius, -sin(rotation) * radius)
+	
 
 func _on_area_entered(area):
 	if area.is_in_group("Enemy"):
-		area.dying = true
+		if area.has_method("dying_now"):
+			area.dying_now()
+		PlayerVariables.gold += area.gold_value
+		PlayerVariables.health -= area.damage_value
