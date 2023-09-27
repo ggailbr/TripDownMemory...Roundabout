@@ -26,6 +26,9 @@ func _process(delta):
 		gold_value -= delta * 2
 	else:
 		gold_value = 0
+	if PlayerVariables.health <= 0:
+		var root = get_node("/root/Node2D/")
+		root.get_tree().reload_current_scene()
 
 func _on_grace_timer_timeout():
 	$SpawnerTimer.autostart = true

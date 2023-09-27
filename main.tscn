@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://chkcs6r0hw3sv"]
+[gd_scene load_steps=25 format=3 uid="uid://chkcs6r0hw3sv"]
 
 [ext_resource type="Script" path="res://Scripts/Roundabout.gd" id="1_4iwr0"]
 [ext_resource type="PackedScene" uid="uid://cj1i8rghny6us" path="res://Scenes/Enemies/BasicCar.tscn" id="2_fdfr5"]
@@ -135,12 +135,22 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_li1wc"]
+font_size = 30
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_58j8k"]
+font_size = 30
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Node2D" type="Node2D"]
 
 [node name="Roundabout" type="Marker2D" parent="." groups=["Level"]]
 editor_description = "A single \"level\""
 script = ExtResource("1_4iwr0")
-num_lanes = 7
+num_lanes = 6
 enemies = Array[PackedScene]([ExtResource("3_okfo1"), ExtResource("2_fdfr5")])
 spawn_timer = 0.5
 
@@ -162,6 +172,19 @@ animation = &"10"
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("4_m8rga")]
 
+[node name="Health" type="TextureProgressBar" parent="Player"]
+offset_left = -49.0
+offset_top = 44.0
+offset_right = 51.0
+offset_bottom = 64.0
+texture_under = ExtResource("8_jh0ay")
+texture_over = ExtResource("9_5odwv")
+texture_progress = ExtResource("10_1nkbp")
+tint_under = Color(0, 0, 0, 1)
+tint_over = Color(0.235294, 1, 1, 0.466667)
+tint_progress = Color(1, 0, 0, 1)
+script = ExtResource("11_y8x60")
+
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(1, 1)
 ignore_rotation = false
@@ -178,48 +201,43 @@ offset_bottom = 40.0
 layout_mode = 2
 text = "
 "
+label_settings = SubResource("LabelSettings_li1wc")
 
 [node name="Current Health" type="Label" parent="InGameUI/VBoxContainer"]
 layout_mode = 2
 text = "
 "
+label_settings = SubResource("LabelSettings_58j8k")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="InGameUI"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = -26.0
-offset_right = -793.0
+offset_left = -256.0
+offset_right = -1052.0
+offset_bottom = 26.0
 grow_horizontal = 2
 grow_vertical = 0
 size_flags_vertical = 8
 alignment = 1
 
 [node name="Label" type="Label" parent="InGameUI/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "HP"
 
 [node name="Label2" type="Label" parent="InGameUI/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Gold
 "
 
 [node name="Label3" type="Label" parent="InGameUI/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Items
 "
-
-[node name="Health" type="TextureProgressBar" parent="InGameUI/HBoxContainer"]
-layout_mode = 2
-texture_under = ExtResource("8_jh0ay")
-texture_over = ExtResource("9_5odwv")
-texture_progress = ExtResource("10_1nkbp")
-tint_under = Color(0, 0, 0, 1)
-tint_over = Color(0.235294, 1, 1, 0.466667)
-tint_progress = Color(1, 0, 0, 1)
-script = ExtResource("11_y8x60")
 
 [connection signal="timeout" from="Roundabout/SpawnerTimer" to="Roundabout" method="_on_spawner_timer_timeout"]
 [connection signal="timeout" from="Roundabout/GraceTimer" to="Roundabout" method="_on_grace_timer_timeout"]

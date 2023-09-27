@@ -9,7 +9,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$VBoxContainer/"Current Gold".text = "Gold: "+str(PlayerVariables.gold)+" value: "+str($HBoxContainer/Health.value)
+	$VBoxContainer/"Current Gold".text = "Gold: "+str(PlayerVariables.gold)
 	$VBoxContainer/"Current Health".text = "Health: "+str(PlayerVariables.health)
 
 

@@ -18,6 +18,7 @@ var radius : float
 func _ready():
 	call_deferred("initialize_lanes")
 	PlayerVariables.health = 100
+	PlayerVariables.gold = 0
 	$CarBody.set_modulate(color)
 	
 func initialize_lanes():
@@ -66,3 +67,4 @@ func _on_area_entered(area):
 			area.dying_now()
 		PlayerVariables.gold += area.gold_value
 		PlayerVariables.health -= area.damage_value
+		$Health.tween_health()
