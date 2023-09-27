@@ -19,6 +19,7 @@ func _ready():
 	$SpawnerTimer.wait_time = spawn_timer
 	Player = get_node("/root/Node2D/Player")
 	PlayerVariables.max_lane = num_lanes
+	$AnimatedSprite2D.animation = "%d" %num_lanes
 	
 func _process(delta):
 	if gold_value > 0:

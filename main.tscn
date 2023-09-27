@@ -1,10 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://chkcs6r0hw3sv"]
+[gd_scene load_steps=23 format=3 uid="uid://chkcs6r0hw3sv"]
 
 [ext_resource type="Script" path="res://Scripts/Roundabout.gd" id="1_4iwr0"]
 [ext_resource type="PackedScene" uid="uid://cj1i8rghny6us" path="res://Scenes/Enemies/BasicCar.tscn" id="2_fdfr5"]
 [ext_resource type="PackedScene" uid="uid://blgv1oiwjuhyp" path="res://Scenes/Enemies/GoldCar.tscn" id="3_okfo1"]
 [ext_resource type="PackedScene" uid="uid://b237aacigxv6p" path="res://Scenes/Player.tscn" id="4_m8rga"]
-[ext_resource type="Texture2D" uid="uid://u4s6wweqjikp" path="res://Sprites/New_Roundabout.png" id="5_823hy"]
+[ext_resource type="Texture2D" uid="uid://frj0lohe31c4" path="res://Sprites/Roundabout.png" id="5_sihjx"]
 [ext_resource type="Script" path="res://Scripts/InGameUI.gd" id="5_wlfj5"]
 [ext_resource type="AudioStream" uid="uid://c3gk0durels4w" path="res://Sounds/highway-traffic-cars-and-street-sounds-8029.mp3" id="6_gucid"]
 [ext_resource type="Texture2D" uid="uid://ccpyvdcrbgune" path="res://Sprites/health_under.tres" id="8_jh0ay"]
@@ -12,19 +12,51 @@
 [ext_resource type="Texture2D" uid="uid://crr27qgba6pt6" path="res://Sprites/health_progress.tres" id="10_1nkbp"]
 [ext_resource type="Script" path="res://Health.gd" id="11_y8x60"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jskx6"]
-atlas = ExtResource("5_823hy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo4if"]
+atlas = ExtResource("5_sihjx")
 region = Rect2(0, 0, 1500, 1500)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l3t6v"]
-atlas = ExtResource("5_823hy")
+[sub_resource type="AtlasTexture" id="AtlasTexture_500gv"]
+atlas = ExtResource("5_sihjx")
+region = Rect2(0, 4500, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x05aw"]
+atlas = ExtResource("5_sihjx")
+region = Rect2(1500, 0, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nxn5"]
+atlas = ExtResource("5_sihjx")
+region = Rect2(3000, 0, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ninym"]
+atlas = ExtResource("5_sihjx")
+region = Rect2(0, 1500, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ux5ki"]
+atlas = ExtResource("5_sihjx")
+region = Rect2(1500, 1500, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6c1m"]
+atlas = ExtResource("5_sihjx")
+region = Rect2(3000, 1500, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_65ksi"]
+atlas = ExtResource("5_sihjx")
+region = Rect2(0, 3000, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3li82"]
+atlas = ExtResource("5_sihjx")
 region = Rect2(1500, 3000, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l126s"]
+atlas = ExtResource("5_sihjx")
+region = Rect2(3000, 3000, 1500, 1500)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wblxy"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jskx6")
+"texture": SubResource("AtlasTexture_uo4if")
 }],
 "loop": true,
 "name": &"1",
@@ -32,10 +64,74 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l3t6v")
+"texture": SubResource("AtlasTexture_500gv")
+}],
+"loop": true,
+"name": &"10",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x05aw")
+}],
+"loop": true,
+"name": &"2",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nxn5")
+}],
+"loop": true,
+"name": &"3",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ninym")
+}],
+"loop": true,
+"name": &"4",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ux5ki")
+}],
+"loop": true,
+"name": &"5",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6c1m")
 }],
 "loop": true,
 "name": &"6",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_65ksi")
+}],
+"loop": true,
+"name": &"7",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3li82")
+}],
+"loop": true,
+"name": &"8",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l126s")
+}],
+"loop": true,
+"name": &"9",
 "speed": 5.0
 }]
 
@@ -44,7 +140,7 @@ animations = [{
 [node name="Roundabout" type="Marker2D" parent="." groups=["Level"]]
 editor_description = "A single \"level\""
 script = ExtResource("1_4iwr0")
-num_lanes = 6
+num_lanes = 7
 enemies = Array[PackedScene]([ExtResource("3_okfo1"), ExtResource("2_fdfr5")])
 spawn_timer = 0.5
 
@@ -62,7 +158,7 @@ autoplay = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Roundabout"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_wblxy")
-animation = &"6"
+animation = &"10"
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("4_m8rga")]
 
